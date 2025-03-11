@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Feed Aggregator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>📰 News Feed Aggregator</h1>
+    </header>
+
+    <section class="search">
+        <form id="searchForm">
+            <input type="text" id="query" placeholder="Search for news...">
+            <button type="submit">Search</button>
+        </form>
+    </section>
+
+    <section class="news-container" id="news-container">
+        {% for article in articles %}
+        <div class="news-card">
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.description }}</p>
+            <a href="{{ article.url }}" target="_blank">Read more</a>
+        </div>
+        {% endfor %}
+    </section>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const query = document.getElementById('query').value;
+            window.location.href = `/?query=${query}`;
+        });
+    </script>
+</body>
+</html>
